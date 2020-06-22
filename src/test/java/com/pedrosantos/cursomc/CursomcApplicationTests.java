@@ -20,12 +20,17 @@ class CursomcApplicationTests {
 	}
 	
 	@Test
-	void list_ValidArg_ReturnCategory() {
+	void listCategory_ValidArg_ReturnCategory() {
 		Category expected = new Category(1, "Informática");
 		
 		Category result = categoryService.find(expected.getId());
 		
 		assertThat(result.equals(expected));
 	}
-
+	
+	@Test
+	void listCustomer_ValidArg_ReturnCategory() {
+		
+		
+	}
 }

@@ -22,11 +22,11 @@ public class Customer implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String name;
 	private String email;
-	private String CPF_CNPJ;
+	private String cpf_cnpj;
 	private Integer type;
 
 	@JsonManagedReference
@@ -45,7 +45,7 @@ public class Customer implements Serializable {
 		this.id = id;
 		this.name = name;
 		this.email = email;
-		CPF_CNPJ = cPF_CNPJ;
+		cpf_cnpj = cPF_CNPJ;
 		this.type = type.getCod();
 	}
 
@@ -74,11 +74,11 @@ public class Customer implements Serializable {
 	}
 
 	public String getCPF_CNPJ() {
-		return CPF_CNPJ;
+		return cpf_cnpj;
 	}
 
 	public void setCPF_CNPJ(String cPF_CNPJ) {
-		CPF_CNPJ = cPF_CNPJ;
+		cpf_cnpj = cPF_CNPJ;
 	}
 
 	public CustomerType getType() {

@@ -2,8 +2,8 @@ package com.pedrosantos.cursomc.domain.enums;
 
 public enum CustomerType {
 
-	PERSON_PHYSICAL(1, "Pessoa Física"),
-	PERSON_JURIDICAL(2, "Pessoa Jurídica");
+	PHYSICAL(1, "Pessoa Física"),
+	JURIDICAL(2, "Pessoa Jurídica");
 	
 	private int cod;
 	private String description;
