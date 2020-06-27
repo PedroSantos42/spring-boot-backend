@@ -17,6 +17,7 @@ import com.pedrosantos.cursomc.domain.PaymentCreditCard;
 import com.pedrosantos.cursomc.domain.PaymentSlip;
 import com.pedrosantos.cursomc.domain.Product;
 import com.pedrosantos.cursomc.domain.Purchase;
+import com.pedrosantos.cursomc.domain.PurchaseProduct;
 import com.pedrosantos.cursomc.domain.State;
 import com.pedrosantos.cursomc.domain.enums.CustomerType;
 import com.pedrosantos.cursomc.domain.enums.PaymentStage;
@@ -26,6 +27,7 @@ import com.pedrosantos.cursomc.repositories.CityRepository;
 import com.pedrosantos.cursomc.repositories.CustomerRepository;
 import com.pedrosantos.cursomc.repositories.PaymentRepository;
 import com.pedrosantos.cursomc.repositories.ProductRepository;
+import com.pedrosantos.cursomc.repositories.PurchaseProductRepository;
 import com.pedrosantos.cursomc.repositories.PurchaseRepository;
 import com.pedrosantos.cursomc.repositories.StateRepository;
 
@@ -52,24 +54,26 @@ public class CursomcApplication implements CommandLineRunner {
 	private PurchaseRepository purchaseRepository;
 	@Autowired
 	private PaymentRepository paymentRepository;
+	@Autowired
+	private PurchaseProductRepository purchaseProductRepository;
 	
 	@Override
 	public void run(String... args) throws Exception {
 		
-		Category cat1 = new Category(null, "Informática");
-		Category cat2 = new Category(null, "Escritório");
+		Category category1 = new Category(null, "Informática");
+		Category category2 = new Category(null, "Escritório");
 		
-		Product prod1 = new Product(null, "Notebook", 1800.0);
-		Product prod2 = new Product(null, "Impressora", 400.0);
-		Product prod3 = new Product(null, "Mouse", 80.0);
+		Product product1 = new Product(null, "Notebook", 1800.0);
+		Product product2 = new Product(null, "Impressora", 400.0);
+		Product product3 = new Product(null, "Mouse", 80.0);
 		
-		cat1.getProducts().addAll(Arrays.asList(prod1, prod2, prod3));
-		cat2.getProducts().addAll(Arrays.asList(prod2));
+		category1.getProducts().addAll(Arrays.asList(product1, product2, product3));
+		category2.getProducts().addAll(Arrays.asList(product2));
 		
-		prod1.getCategories().addAll(Arrays.asList(cat1));
-		prod2.getCategories().addAll(Arrays.asList(cat1, cat2));
-		prod3.getCategories().addAll(Arrays.asList(cat1));
-		
+		product1.getCategories().addAll(Arrays.asList(category1));
+		product2.getCategories().addAll(Arrays.asList(category1, category2));
+		product3.getCategories().addAll(Arrays.asList(category1));
+
 		State state1 = new State(null, "Minas Gerais");
 		State state2 = new State(null, "São Paulo");
 
@@ -98,12 +102,23 @@ public class CursomcApplication implements CommandLineRunner {
 
 		Payment payment2 = new PaymentSlip(null, PaymentStage.PENDING, purchase2, sdf.parse("20/10/2017 00:00"), null);
 		purchase2.setPayment(payment2);
-
+		
 		customer1.getPurchases().addAll(Arrays.asList(purchase1));
+
+		PurchaseProduct pp1 = new PurchaseProduct(product1, purchase1, 0.0, 1, 2000.0);
+		PurchaseProduct pp2 = new PurchaseProduct(product3, purchase1, 0.0, 1, 80.0);
+		PurchaseProduct pp3 = new PurchaseProduct(product2, purchase2, 100.0, 1, 800.0);
 		
-		categoriaRepository.saveAll(Arrays.asList(cat1, cat2));
-		
-		productRepository.saveAll(Arrays.asList(prod1, prod2, prod3));
+		purchase1.getItems().addAll(Arrays.asList(pp1, pp2));
+		purchase2.getItems().addAll(Arrays.asList(pp3));
+
+		product1.getItems().addAll(Arrays.asList(pp1));
+		product2.getItems().addAll(Arrays.asList(pp3));
+		product3.getItems().addAll(Arrays.asList(pp2));
+
+		categoriaRepository.saveAll(Arrays.asList(category1, category2));
+
+		productRepository.saveAll(Arrays.asList(product1, product2, product3));
 		
 		stateRepository.saveAll(Arrays.asList(state1, state2));
 		
@@ -116,5 +131,7 @@ public class CursomcApplication implements CommandLineRunner {
 		purchaseRepository.saveAll(Arrays.asList(purchase1, purchase2));
 
 		paymentRepository.saveAll(Arrays.asList(payment1, payment2));
+		
+		purchaseProductRepository.saveAll(Arrays.asList(pp1, pp2, pp3));
 	}
 }
