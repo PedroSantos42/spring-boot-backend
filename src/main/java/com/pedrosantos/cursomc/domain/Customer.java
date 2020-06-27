@@ -14,8 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pedrosantos.cursomc.domain.enums.CustomerType;
 
 @Entity
@@ -30,7 +29,6 @@ public class Customer implements Serializable {
 	private String cpf_cnpj;
 	private Integer type;
 
-	@JsonManagedReference
 	@OneToMany(mappedBy = "customer")
 	private List<Address> addresses = new ArrayList<>();
 
@@ -38,7 +36,7 @@ public class Customer implements Serializable {
 	@CollectionTable(name = "TELEPHONE")
 	private Set<String> telephones = new HashSet<>();
 
-	@JsonBackReference
+	@JsonIgnore
 	@OneToMany(mappedBy = "customer")
 	private List<Purchase> purchases = new ArrayList<>();
 
@@ -77,12 +75,12 @@ public class Customer implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	public String getCPF_CNPJ() {
+	
+	public String getCpf_cnpj() {
 		return cpf_cnpj;
 	}
 
-	public void setCPF_CNPJ(String cpf_cnpj) {
+	public void setCpf_cnpj(String cpf_cnpj) {
 		this.cpf_cnpj = cpf_cnpj;
 	}
 
