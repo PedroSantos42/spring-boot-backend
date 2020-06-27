@@ -36,11 +36,12 @@ public class Customer implements Serializable {
 	@ElementCollection
 	@CollectionTable(name = "TELEPHONE")
 	private Set<String> telephones = new HashSet<>();
-	
+
 	@OneToMany(mappedBy = "customer")
 	private List<Purchase> purchases = new ArrayList<>();
-	
-	public Customer() {}
+
+	public Customer() {
+	}
 
 	public Customer(Integer id, String name, String email, String cpf_cnpj, CustomerType type) {
 		super();
@@ -79,8 +80,8 @@ public class Customer implements Serializable {
 		return cpf_cnpj;
 	}
 
-	public void setCPF_CNPJ(String cPF_CNPJ) {
-		cpf_cnpj = cPF_CNPJ;
+	public void setCPF_CNPJ(String cpf_cnpj) {
+		this.cpf_cnpj = cpf_cnpj;
 	}
 
 	public CustomerType getType() {

@@ -3,8 +3,6 @@ package com.pedrosantos.cursomc.domain;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -16,25 +14,25 @@ import com.pedrosantos.cursomc.domain.enums.PaymentStage;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Payment implements Serializable {
+public abstract class Payment implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private PaymentStage stage;
-	
+	private Integer stage;
+
 	@OneToOne
-	@JoinColumn(name="purchase_id")
+	@JoinColumn(name = "purchase_id")
 	@MapsId
 	private Purchase purchase;
-	
-	public Payment() {}
-	
+
+	public Payment() {
+	}
+
 	public Payment(Integer id, PaymentStage stage, Purchase purchase) {
 		super();
 		this.id = id;
-		this.stage = stage;
+		this.stage = stage.getCod();
 		this.purchase = purchase;
 	}
 
@@ -47,11 +45,11 @@ public class Payment implements Serializable {
 	}
 
 	public PaymentStage getStage() {
-		return stage;
+		return PaymentStage.toEnum(stage);
 	}
 
 	public void setStage(PaymentStage stage) {
-		this.stage = stage;
+		this.stage = stage.getCod();
 	}
 
 	public Purchase getPurchase() {
