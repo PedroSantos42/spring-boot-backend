@@ -36,16 +36,18 @@ public class Customer implements Serializable {
 	@ElementCollection
 	@CollectionTable(name = "TELEPHONE")
 	private Set<String> telephones = new HashSet<>();
+	
+	@OneToMany(mappedBy = "customer")
+	private List<Purchase> purchases = new ArrayList<>();
+	
+	public Customer() {}
 
-	private Customer() {
-	}
-
-	public Customer(Integer id, String name, String email, String cPF_CNPJ, CustomerType type) {
+	public Customer(Integer id, String name, String email, String cpf_cnpj, CustomerType type) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.email = email;
-		cpf_cnpj = cPF_CNPJ;
+		this.cpf_cnpj = cpf_cnpj;
 		this.type = type.getCod();
 	}
 
@@ -103,6 +105,14 @@ public class Customer implements Serializable {
 
 	public void setTelephones(Set<String> telephones) {
 		this.telephones = telephones;
+	}
+
+	public List<Purchase> getPurchases() {
+		return purchases;
+	}
+
+	public void setOrders(List<Purchase> purchases) {
+		this.purchases = purchases;
 	}
 
 	@Override
