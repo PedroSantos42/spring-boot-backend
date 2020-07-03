@@ -37,7 +37,7 @@ public class CursomcApplication implements CommandLineRunner {
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
 	}
-	
+
 	@Autowired
 	private CategoryRepository categoriaRepository;
 	@Autowired
@@ -56,20 +56,24 @@ public class CursomcApplication implements CommandLineRunner {
 	private PaymentRepository paymentRepository;
 	@Autowired
 	private PurchaseProductRepository purchaseProductRepository;
-	
+
 	@Override
 	public void run(String... args) throws Exception {
-		
+
 		Category category1 = new Category(null, "Informática");
 		Category category2 = new Category(null, "Escritório");
-		
+		Category category3 = new Category(null, "Cama, mesa e banho");
+		Category category4 = new Category(null, "Eletrônicos");
+		Category category5 = new Category(null, "Jardinagem");
+		Category category6 = new Category(null, "Decoração");
+		Category category7 = new Category(null, "Perfumaria");
+
 		Product product1 = new Product(null, "Notebook", 1800.0);
 		Product product2 = new Product(null, "Impressora", 400.0);
 		Product product3 = new Product(null, "Mouse", 80.0);
-		
+
 		category1.getProducts().addAll(Arrays.asList(product1, product2, product3));
-		category2.getProducts().addAll(Arrays.asList(product2));
-		
+
 		product1.getCategories().addAll(Arrays.asList(category1));
 		product2.getCategories().addAll(Arrays.asList(category1, category2));
 		product3.getCategories().addAll(Arrays.asList(category1));
@@ -80,7 +84,7 @@ public class CursomcApplication implements CommandLineRunner {
 		City city1 = new City(null, "Uberlândia", state1);
 		City city2 = new City(null, "São Paulo", state2);
 		City city3 = new City(null, "Campinas", state2);
-		
+
 		state1.getCities().addAll(Arrays.asList(city1));
 		state2.getCities().addAll(Arrays.asList(city2, city3));
 
@@ -89,26 +93,26 @@ public class CursomcApplication implements CommandLineRunner {
 
 		Address address1 = new Address(null, "Rua Flores", "120", "APTO 201", "Jardins", "5962050", customer1, city1);
 		Address address2 = new Address(null, "Av Matos", "314", "Sala 800", "Centro", "62044230", customer1, city2);
-		
+
 		customer1.getAddresses().addAll(Arrays.asList(address1, address2));
-		
+
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-		
+
 		Purchase purchase1 = new Purchase(null, sdf.parse("30/09/2018 10:32"), customer1, address1);
 		Purchase purchase2 = new Purchase(null, sdf.parse("10/10/2018 19:24"), customer1, address2);
-		
+
 		Payment payment1 = new PaymentCreditCard(null, PaymentStage.DONE, purchase1, 6);
 		purchase1.setPayment(payment1);
 
 		Payment payment2 = new PaymentSlip(null, PaymentStage.PENDING, purchase2, sdf.parse("20/10/2017 00:00"), null);
 		purchase2.setPayment(payment2);
-		
+
 		customer1.getPurchases().addAll(Arrays.asList(purchase1));
 
 		PurchaseProduct pp1 = new PurchaseProduct(product1, purchase1, 0.0, 1, 2000.0);
 		PurchaseProduct pp2 = new PurchaseProduct(product3, purchase1, 0.0, 1, 80.0);
 		PurchaseProduct pp3 = new PurchaseProduct(product2, purchase2, 100.0, 1, 800.0);
-		
+
 		purchase1.getItems().addAll(Arrays.asList(pp1, pp2));
 		purchase2.getItems().addAll(Arrays.asList(pp3));
 
@@ -116,22 +120,23 @@ public class CursomcApplication implements CommandLineRunner {
 		product2.getItems().addAll(Arrays.asList(pp3));
 		product3.getItems().addAll(Arrays.asList(pp2));
 
-		categoriaRepository.saveAll(Arrays.asList(category1, category2));
+		categoriaRepository
+				.saveAll(Arrays.asList(category1, category2, category3, category4, category5, category6, category7));
 
 		productRepository.saveAll(Arrays.asList(product1, product2, product3));
-		
+
 		stateRepository.saveAll(Arrays.asList(state1, state2));
-		
+
 		cityRepository.saveAll(Arrays.asList(city1, city2, city3));
-		
+
 		customerRepository.saveAll(Arrays.asList(customer1));
-		
+
 		addressRepository.saveAll(Arrays.asList(address1, address2));
 
 		purchaseRepository.saveAll(Arrays.asList(purchase1, purchase2));
 
 		paymentRepository.saveAll(Arrays.asList(payment1, payment2));
-		
+
 		purchaseProductRepository.saveAll(Arrays.asList(pp1, pp2, pp3));
 	}
 }
