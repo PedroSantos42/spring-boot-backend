@@ -13,6 +13,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pedrosantos.cursomc.domain.enums.CustomerType;
@@ -25,7 +27,9 @@ public class Customer implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String name;
+	@Email
 	private String email;
+	@NotEmpty
 	private String cpf_cnpj;
 	private Integer type;
 
@@ -75,7 +79,7 @@ public class Customer implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 	public String getCpf_cnpj() {
 		return cpf_cnpj;
 	}

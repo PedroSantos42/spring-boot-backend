@@ -1,31 +1,26 @@
 package com.pedrosantos.cursomc.dto;
 
 import java.io.Serializable;
+import javax.validation.constraints.Email;
 
-import javax.validation.constraints.NotEmpty;
-import org.hibernate.validator.constraints.Length;
+import com.pedrosantos.cursomc.domain.Customer;
 
-import com.pedrosantos.cursomc.domain.Category;
-
-public class CategoryDTO implements Serializable {
+public class CustomerDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Integer id;
-    @NotEmpty(message = "Preenchimento obrigatório")
-    @Length(min = 5, max = 80, message = "O tamanho deve ser entre 5 e 80 caracteres")
     private String name;
 
-    public CategoryDTO(Category c) {
+    @Email(message = "E-mail inválido")
+    private String email;
+
+    public CustomerDTO(Customer c) {
         this.id = c.getId();
         this.name = c.getName();
+        this.email = c.getEmail();
     }
 
-    public CategoryDTO() {
-    }
-
-    public CategoryDTO(Integer id, String name) {
-        this.id = id;
-        this.name = name;
+    public CustomerDTO() {
     }
 
     public Integer getId() {
@@ -42,5 +37,13 @@ public class CategoryDTO implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
