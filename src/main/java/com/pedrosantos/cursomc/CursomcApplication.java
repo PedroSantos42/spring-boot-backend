@@ -88,7 +88,7 @@ public class CursomcApplication implements CommandLineRunner {
 		state1.getCities().addAll(Arrays.asList(city1));
 		state2.getCities().addAll(Arrays.asList(city2, city3));
 
-		Customer customer1 = new Customer(null, "Ana Paula", "ana@gmail.com", "39865644520", CustomerType.PHYSICAL);
+		Customer customer1 = new Customer(null, "Ana Paula", "ana@gmail.com", "39865644520", CustomerType.CIVILIAN);
 		customer1.getTelephones().addAll(Arrays.asList("88569963", "99875263"));
 
 		Address address1 = new Address(null, "Rua Flores", "120", "APTO 201", "Jardins", "5962050", customer1, city1);

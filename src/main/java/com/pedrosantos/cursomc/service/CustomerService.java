@@ -26,7 +26,6 @@ public class CustomerService {
 
 	public Customer find(Integer id) {
 		Optional<Customer> obj = repo.findById(id);
-
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! ID: " + id + ", Tipo: " + Customer.class.getSimpleName()));
 	}
@@ -37,8 +36,9 @@ public class CustomerService {
 	}
 
 	public Customer update(Customer obj) {
-		find(obj.getId());
-		return repo.save(obj);
+		Customer newObj = find(obj.getId());
+		updateData(newObj, obj);
+		return repo.save(newObj);
 	}
 
 	public void delete(Integer id) {
@@ -60,8 +60,11 @@ public class CustomerService {
 	}
 
 	public Customer fromDTO(@Valid CustomerDTO objDto) {
-		// return new Customer(objDto.getId(), objDto.getName(), objDto.getEmail(),
-		// objDto.);
-		return null;
+		return new Customer(objDto.getId(), objDto.getName(), objDto.getEmail(), null, null);
+	}
+
+	private void updateData(Customer newObj, Customer obj) {
+		newObj.setName(obj.getName());
+		newObj.setEmail(obj.getEmail());
 	}
 }

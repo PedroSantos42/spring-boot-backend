@@ -34,7 +34,7 @@ public abstract class Payment implements Serializable {
 	public Payment(Integer id, PaymentStage stage, Purchase purchase) {
 		super();
 		this.id = id;
-		this.stage = stage.getCod();
+		this.stage = (stage == null) ? null : stage.getCod();
 		this.purchase = purchase;
 	}
 

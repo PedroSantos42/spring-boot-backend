@@ -14,7 +14,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pedrosantos.cursomc.domain.enums.CustomerType;
@@ -29,8 +28,7 @@ public class Customer implements Serializable {
 	private String name;
 	@Email
 	private String email;
-	@NotEmpty
-	private String cpf_cnpj;
+	private String cpfCnpj;
 	private Integer type;
 
 	@OneToMany(mappedBy = "customer")
@@ -47,13 +45,13 @@ public class Customer implements Serializable {
 	public Customer() {
 	}
 
-	public Customer(Integer id, String name, String email, String cpf_cnpj, CustomerType type) {
+	public Customer(Integer id, String name, String email, String cpfCnpj, CustomerType type) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.email = email;
-		this.cpf_cnpj = cpf_cnpj;
-		this.type = type.getCod();
+		this.cpfCnpj = cpfCnpj;
+		this.type = (type == null) ? null : type.getCod();
 	}
 
 	public Integer getId() {
@@ -80,12 +78,12 @@ public class Customer implements Serializable {
 		this.email = email;
 	}
 
-	public String getCpf_cnpj() {
-		return cpf_cnpj;
+	public String getCpfCnpj() {
+		return cpfCnpj;
 	}
 
-	public void setCpf_cnpj(String cpf_cnpj) {
-		this.cpf_cnpj = cpf_cnpj;
+	public void setCpfCnpj(String cpfCnpj) {
+		this.cpfCnpj = cpfCnpj;
 	}
 
 	public CustomerType getType() {
