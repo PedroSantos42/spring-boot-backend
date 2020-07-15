@@ -2,6 +2,7 @@ package com.pedrosantos.cursomc.dto;
 
 import java.io.Serializable;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 
 import com.pedrosantos.cursomc.domain.Customer;
 
@@ -9,8 +10,11 @@ public class CustomerDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Integer id;
+
+    @NotEmpty(message = "Preenchimento obrigatório")
     private String name;
 
+    @NotEmpty(message = "Preenchimento obrigatório")
     @Email(message = "E-mail inválido")
     private String email;
 

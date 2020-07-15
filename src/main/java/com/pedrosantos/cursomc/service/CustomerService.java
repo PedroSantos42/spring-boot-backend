@@ -3,8 +3,6 @@ package com.pedrosantos.cursomc.service;
 import java.util.List;
 import java.util.Optional;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -12,8 +10,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import com.pedrosantos.cursomc.domain.Address;
+import com.pedrosantos.cursomc.domain.City;
 import com.pedrosantos.cursomc.domain.Customer;
+import com.pedrosantos.cursomc.domain.enums.CustomerType;
 import com.pedrosantos.cursomc.dto.CustomerDTO;
+import com.pedrosantos.cursomc.dto.CustomerNewDTO;
+import com.pedrosantos.cursomc.repositories.AddressRepository;
 import com.pedrosantos.cursomc.repositories.CustomerRepository;
 import com.pedrosantos.cursomc.service.exceptions.DataIntegrityException;
 import com.pedrosantos.cursomc.service.exceptions.ObjectNotFoundException;
@@ -23,7 +26,10 @@ public class CustomerService {
 
 	@Autowired
 	private CustomerRepository repo;
-
+	
+	@Autowired
+	private AddressRepository repoAddress;
+	
 	public Customer find(Integer id) {
 		Optional<Customer> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
@@ -32,7 +38,9 @@ public class CustomerService {
 
 	public Customer insert(Customer obj) {
 		obj.setId(null);
-		return repo.save(obj);
+		obj = repo.save(obj);
+		repoAddress.saveAll(obj.getAddresses());
+		return obj;
 	}
 
 	public Customer update(Customer obj) {
@@ -59,8 +67,23 @@ public class CustomerService {
 		return repo.findAll(pageRequest);
 	}
 
-	public Customer fromDTO(@Valid CustomerDTO objDto) {
+	public Customer fromDTO(CustomerDTO objDto) {
 		return new Customer(objDto.getId(), objDto.getName(), objDto.getEmail(), null, null);
+	}
+
+	public Customer fromDTO(CustomerNewDTO objDto) {
+		Customer customer1 = new Customer(null, objDto.getName(), objDto.getEmail(), objDto.getCpfCnpj(), CustomerType.toEnum(objDto.getType()));
+		City city1 = new City(objDto.getCityId(), null, null);
+		Address address1 = new Address(null, objDto.getStreet(), objDto.getNumber(), objDto.getDistrict(), objDto.getComplement(), objDto.getZipCode(), customer1, city1);
+		customer1.getAddresses().add(address1);
+		customer1.getTelephones().add(objDto.getTelephone1());
+		if (objDto.getTelephone2() != null) {
+			customer1.getTelephones().add(objDto.getTelephone2());
+		}
+		if (objDto.getTelephone3() != null) {
+			customer1.getTelephones().add(objDto.getTelephone3());
+		}
+		return customer1;
 	}
 
 	private void updateData(Customer newObj, Customer obj) {
