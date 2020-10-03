@@ -6,6 +6,13 @@ import javax.validation.constraints.NotEmpty;
 
 import com.pedrosantos.application.domain.Customer;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
 public class CustomerDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -22,32 +29,5 @@ public class CustomerDTO implements Serializable {
         this.id = c.getId();
         this.name = c.getName();
         this.email = c.getEmail();
-    }
-
-    public CustomerDTO() {
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 }

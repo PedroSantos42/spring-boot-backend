@@ -1,5 +1,10 @@
 package com.pedrosantos.application.domain.enums;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
 public enum PaymentStage {
 
 	PENDING(1, "Pendente"),
@@ -8,19 +13,6 @@ public enum PaymentStage {
 	
 	private int cod;
 	private String description;
-	
-	private PaymentStage(int cod, String description) {
-		this.cod = cod;
-		this.description = description;
-	}
-
-	public int getCod() {
-		return cod;
-	}
-
-	public String getDescription() {
-		return description;
-	}
 	
 	public static PaymentStage toEnum(Integer cod) {
 		if (cod == null) {

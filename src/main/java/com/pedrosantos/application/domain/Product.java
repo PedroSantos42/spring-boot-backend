@@ -17,6 +17,13 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Setter
+@Getter
+@NoArgsConstructor
 @Entity
 public class Product implements Serializable {
 
@@ -41,8 +48,6 @@ public class Product implements Serializable {
 	@OneToMany(mappedBy = "id.product")
 	private Set<PurchaseProduct> items = new HashSet<>();
 	
-	public Product() {}
-	
 	public Product(Integer id, String name, Double price) {
 		super();
 		this.id = id;
@@ -57,46 +62,6 @@ public class Product implements Serializable {
 			list.add(p.getPurchase());
 		}
 		return list;
-	}
-	
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Double getPrice() {
-		return price;
-	}
-
-	public void setPrice(Double price) {
-		this.price = price;
-	}
-
-	public List<Category> getCategories() {
-		return categories;
-	}
-
-	public void setCategories(List<Category> categories) {
-		this.categories = categories;
-	}
-
-	public Set<PurchaseProduct> getItems() {
-		return items;
-	}
-
-	public void setItems(Set<PurchaseProduct> items) {
-		this.items = items;
 	}
 
 	@Override

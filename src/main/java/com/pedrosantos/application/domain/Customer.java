@@ -19,12 +19,22 @@ import javax.validation.constraints.Email;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pedrosantos.application.domain.enums.CustomerType;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Setter
+@Getter
+@NoArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 public class Customer implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@EqualsAndHashCode.Include
 	private Integer id;
 	private String name;
 	@Email
@@ -43,9 +53,6 @@ public class Customer implements Serializable {
 	@OneToMany(mappedBy = "customer")
 	private List<Purchase> purchases = new ArrayList<>();
 
-	public Customer() {
-	}
-
 	public Customer(Integer id, String name, String email, String cpfCnpj, CustomerType type) {
 		super();
 		this.id = id;
@@ -55,92 +62,11 @@ public class Customer implements Serializable {
 		this.type = (type == null) ? null : type.getCod();
 	}
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getCpfCnpj() {
-		return cpfCnpj;
-	}
-
-	public void setCpfCnpj(String cpfCnpj) {
-		this.cpfCnpj = cpfCnpj;
-	}
-
 	public CustomerType getType() {
 		return CustomerType.toEnum(type);
 	}
 
 	public void setType(CustomerType type) {
 		this.type = type.getCod();
-	}
-
-	public List<Address> getAddresses() {
-		return addresses;
-	}
-
-	public void setAddresses(List<Address> addresses) {
-		this.addresses = addresses;
-	}
-
-	public Set<String> getTelephones() {
-		return telephones;
-	}
-
-	public void setTelephones(Set<String> telephones) {
-		this.telephones = telephones;
-	}
-
-	public List<Purchase> getPurchases() {
-		return purchases;
-	}
-
-	public void setOrders(List<Purchase> purchases) {
-		this.purchases = purchases;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Customer other = (Customer) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
 	}
 }

@@ -6,6 +6,13 @@ import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
+@EqualsAndHashCode
 @Embeddable
 public class PurchaseProductPK implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -17,47 +24,4 @@ public class PurchaseProductPK implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "product_id")
 	private Product product;
-	
-	public Purchase getPurchase() {
-		return purchase;
-	}
-	public void setPurchase(Purchase purchase) {
-		this.purchase = purchase;
-	}
-	public Product getProduct() {
-		return product;
-	}
-	public void setProduct(Product product) {
-		this.product = product;
-	}
-	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((product == null) ? 0 : product.hashCode());
-		result = prime * result + ((purchase == null) ? 0 : purchase.hashCode());
-		return result;
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		PurchaseProductPK other = (PurchaseProductPK) obj;
-		if (product == null) {
-			if (other.product != null)
-				return false;
-		} else if (!product.equals(other.product))
-			return false;
-		if (purchase == null) {
-			if (other.purchase != null)
-				return false;
-		} else if (!purchase.equals(other.purchase))
-			return false;
-		return true;
-	}
 }

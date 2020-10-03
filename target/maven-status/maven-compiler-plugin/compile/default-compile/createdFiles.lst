@@ -11,6 +11,7 @@ com/pedrosantos/application/repositories/ProductRepository.class
 com/pedrosantos/application/dto/CustomerNewDTO.class
 com/pedrosantos/application/service/CustomerService.class
 com/pedrosantos/application/domain/PurchaseProductPK.class
+com/pedrosantos/application/config/Instantiation.class
 com/pedrosantos/application/resources/CategoryResource.class
 com/pedrosantos/application/repositories/CategoryRepository.class
 com/pedrosantos/application/resources/CustomerResource.class

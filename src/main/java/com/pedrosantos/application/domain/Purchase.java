@@ -19,6 +19,13 @@ import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Setter
+@Getter
+@NoArgsConstructor
 @Entity
 public class Purchase implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -44,9 +51,6 @@ public class Purchase implements Serializable {
 
 	@OneToMany(mappedBy = "id.purchase")
 	private Set<PurchaseProduct> items = new HashSet<>();
-	
-	public Purchase() {
-	}
 
 	public Purchase(Integer id, Date instant, Customer customer, Address deliveryAddress) {
 		super();
@@ -54,54 +58,6 @@ public class Purchase implements Serializable {
 		this.instant = instant;
 		this.customer = customer;
 		this.deliveryAddress = deliveryAddress;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public Date getInstant() {
-		return instant;
-	}
-
-	public void setInstant(Date instant) {
-		this.instant = instant;
-	}
-
-	public Payment getPayment() {
-		return payment;
-	}
-
-	public void setPayment(Payment payment) {
-		this.payment = payment;
-	}
-
-	public Customer getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
-
-	public Address getDeliveryAddress() {
-		return deliveryAddress;
-	}
-
-	public void setDeliveryAddress(Address deliveryAddress) {
-		this.deliveryAddress = deliveryAddress;
-	}
-
-	public Set<PurchaseProduct> getItems() {
-		return items;
-	}
-
-	public void setItems(Set<PurchaseProduct> items) {
-		this.items = items;
 	}
 
 	@Override
