@@ -11,7 +11,7 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.pedrosantos.application.domain.enums.PaymentStage;
+import com.pedrosantos.application.domain.enums.PaymentStatus;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -20,7 +20,7 @@ public abstract class Payment implements Serializable {
 
 	@Id
 	private Integer id;
-	private Integer stage;
+	private Integer paymentStatus;
 
 	@JsonIgnore
 	@OneToOne
@@ -31,10 +31,10 @@ public abstract class Payment implements Serializable {
 	public Payment() {
 	}
 
-	public Payment(Integer id, PaymentStage stage, Purchase purchase) {
+	public Payment(Integer id, PaymentStatus paymentStatus, Purchase purchase) {
 		super();
 		this.id = id;
-		this.stage = (stage == null) ? null : stage.getCod();
+		this.paymentStatus = (paymentStatus == null) ? null : paymentStatus.getCod();
 		this.purchase = purchase;
 	}
 
@@ -46,12 +46,12 @@ public abstract class Payment implements Serializable {
 		this.id = id;
 	}
 
-	public PaymentStage getStage() {
-		return PaymentStage.toEnum(stage);
+	public PaymentStatus getPaymentStatus() {
+		return PaymentStatus.toEnum(paymentStatus);
 	}
 
-	public void setStage(PaymentStage stage) {
-		this.stage = stage.getCod();
+	public void setPaymentStatus(PaymentStatus paymentStatus) {
+		this.paymentStatus = paymentStatus.getCod();
 	}
 
 	public Purchase getPurchase() {

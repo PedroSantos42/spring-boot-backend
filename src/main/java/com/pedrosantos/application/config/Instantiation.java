@@ -19,7 +19,7 @@ import com.pedrosantos.application.domain.Purchase;
 import com.pedrosantos.application.domain.PurchaseProduct;
 import com.pedrosantos.application.domain.State;
 import com.pedrosantos.application.domain.enums.CustomerType;
-import com.pedrosantos.application.domain.enums.PaymentStage;
+import com.pedrosantos.application.domain.enums.PaymentStatus;
 import com.pedrosantos.application.repositories.AddressRepository;
 import com.pedrosantos.application.repositories.CategoryRepository;
 import com.pedrosantos.application.repositories.CityRepository;
@@ -96,10 +96,10 @@ public class Instantiation implements CommandLineRunner {
 		Purchase purchase1 = new Purchase(null, sdf.parse("30/09/2018 10:32"), customer1, address1);
 		Purchase purchase2 = new Purchase(null, sdf.parse("10/10/2018 19:24"), customer1, address2);
 
-		Payment payment1 = new PaymentCreditCard(null, PaymentStage.DONE, purchase1, 6);
+		Payment payment1 = new PaymentCreditCard(null, PaymentStatus.DONE, purchase1, 6);
 		purchase1.setPayment(payment1);
 
-		Payment payment2 = new PaymentSlip(null, PaymentStage.PENDING, purchase2, sdf.parse("20/10/2017 00:00"), null);
+		Payment payment2 = new PaymentSlip(null, PaymentStatus.PENDING, purchase2, sdf.parse("20/10/2017 00:00"), null);
 		purchase2.setPayment(payment2);
 
 		customer1.getPurchases().addAll(Arrays.asList(purchase1));
@@ -115,8 +115,7 @@ public class Instantiation implements CommandLineRunner {
 		product2.getItems().addAll(Arrays.asList(pp3));
 		product3.getItems().addAll(Arrays.asList(pp2));
 
-		categoriaRepository
-				.saveAll(Arrays.asList(category1, category2, category3, category4, category5, category6, category7));
+		categoriaRepository.saveAll(Arrays.asList(category1, category2, category3, category4, category5, category6, category7));
 
 		productRepository.saveAll(Arrays.asList(product1, product2, product3));
 

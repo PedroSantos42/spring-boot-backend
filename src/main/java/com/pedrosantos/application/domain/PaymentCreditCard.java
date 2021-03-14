@@ -2,7 +2,7 @@ package com.pedrosantos.application.domain;
 
 import javax.persistence.Entity;
 
-import com.pedrosantos.application.domain.enums.PaymentStage;
+import com.pedrosantos.application.domain.enums.PaymentStatus;
 
 @Entity
 public class PaymentCreditCard extends Payment {
@@ -12,8 +12,8 @@ public class PaymentCreditCard extends Payment {
 	
 	public PaymentCreditCard() {}
 
-	public PaymentCreditCard(Integer id, PaymentStage stage, Purchase order, Integer installments) {
-		super(id, stage, order);
+	public PaymentCreditCard(Integer id, PaymentStatus paymentStatus, Purchase order, Integer installments) {
+		super(id, paymentStatus, order);
 		this.installments = installments;
 	}
 

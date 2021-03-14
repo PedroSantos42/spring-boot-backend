@@ -1,6 +1,6 @@
 package com.pedrosantos.application.domain.enums;
 
-public enum PaymentStage {
+public enum PaymentStatus {
 
 	PENDING(1, "Pendente"),
 	DONE(2, "Realizado"),
@@ -9,7 +9,7 @@ public enum PaymentStage {
 	private int cod;
 	private String description;
 	
-	private PaymentStage(int cod, String description) {
+	private PaymentStatus(int cod, String description) {
 		this.cod = cod;
 		this.description = description;
 	}
@@ -22,12 +22,12 @@ public enum PaymentStage {
 		return description;
 	}
 	
-	public static PaymentStage toEnum(Integer cod) {
+	public static PaymentStatus toEnum(Integer cod) {
 		if (cod == null) {
 			return null;
 		}
 		
-		for (PaymentStage payment : PaymentStage.values()) {
+		for (PaymentStatus payment : PaymentStatus.values()) {
 			if (cod.equals(payment.getCod())) {
 				return payment;
 			}
