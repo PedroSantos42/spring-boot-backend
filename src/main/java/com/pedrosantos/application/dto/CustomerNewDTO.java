@@ -1,22 +1,41 @@
 package com.pedrosantos.application.dto;
 
 import java.io.Serializable;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 
+import com.pedrosantos.application.service.validations.CustomerInsert;
+
+@CustomerInsert
 public class CustomerNewDTO implements Serializable {
     private static final long serialVersionUID = 1L;
-    
+	
+    @NotEmpty(message = "Preenchimento obrigatório")
     private String name;
+
+	@NotEmpty(message = "Preenchimento obrigatório")
+    @Email(message = "E-mail inválido")
 	private String email;
+	
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String cpfCnpj;
+	
 	private Integer type;
 	
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String street;
+	
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String number;
 	private String complement;
 	private String district;
+	
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String zipCode;
 
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String telephone1;
+	
 	private String telephone2;
 	private String telephone3;
 	
